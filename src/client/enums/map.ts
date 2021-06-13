@@ -1,0 +1,5 @@
+export enum MAP_STYLE_TYPE {
+  MAPBOX_STREET,
+  MAPBOX_LIGHT,
+  MAPBOX_NIGHT,
+}

@@ -1,15 +1,30 @@
-import React, { FC } from 'react';
+import React, {
+  FC,
+  useState
+} from 'react';
 import SEO from '@components/organisms/common/SEO';
 import HomeTemplate from '../../templates/layout/HomeTemplate';
+import MapView, { MapViewPropsType } from '@components/atoms/view/MapView';
 
 interface PropsType {}
 
 const MainHomePage: FC<PropsType> = props => {
+  const [viewport, setViewport] = useState<MapViewPropsType>({
+    width: '100%',
+    height: '100%',
+    longitude: 126.9783882,
+    latitude: 37.5666103,
+    zoom: 17,
+  });
+
   return (
     <>
       <SEO title="Home" />
       <HomeTemplate>
-        Hello world!
+        <MapView
+          onViewportChange={nextViewport => setViewport(nextViewport)}
+          {...viewport}
+        />
       </HomeTemplate>
     </>
   );

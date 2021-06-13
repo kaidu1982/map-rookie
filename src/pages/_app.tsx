@@ -5,20 +5,16 @@ import { Provider } from 'mobx-react';
 import { AppContext } from 'next/dist/pages/_app';
 import { useStorageStore } from '@stores/StorageStore';
 import { SITE_TITLE } from '@constants/site';
+import { Stores } from '@stores/stores';
 
 interface PropsType {
   pathname: string | null;
 }
 
 const MyApp = ({ Component, pageProps }: AppProps<PropsType>) => {
-  // const [stores, setStores] = useState<Stores>({
-  //   userStore: useUserStore(pageProps.user),
-  //   storageStore: useStorageStore(),
-  // });
-
-  // useEffect(() => {
-  //   void stores.userStore.init();
-  // });
+  const [stores, setStores] = useState<Stores>({
+    storageStore: useStorageStore(),
+  });
 
   const Layout = (Component as any).layout || Empty;
 
@@ -49,7 +45,7 @@ const MyApp = ({ Component, pageProps }: AppProps<PropsType>) => {
         <meta name="msapplication-TileImage" content="/public/ms-icon-144x144.png" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <Provider>
+      <Provider {...stores}>
         <Layout active={pageProps.pathname}>
           <Component {...pageProps} />
         </Layout>
@@ -60,11 +56,9 @@ const MyApp = ({ Component, pageProps }: AppProps<PropsType>) => {
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
   const appProps = await App.getInitialProps(appContext);
-  const user: UserInterface | null = (appContext.ctx.req as any)?.state?.user || null;
   return {
     ...appProps,
     pageProps: {
-      user,
       pathname: appContext.ctx.pathname,
     },
   };
