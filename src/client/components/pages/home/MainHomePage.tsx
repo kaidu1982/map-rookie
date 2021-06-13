@@ -1,7 +1,4 @@
-import React, {
-  FC,
-  useState
-} from 'react';
+import React, { FC, useState } from 'react';
 import SEO from '@components/organisms/common/SEO';
 import HomeTemplate from '../../templates/layout/HomeTemplate';
 import MapView, { MapViewPropsType } from '@components/atoms/view/MapView';
@@ -23,6 +20,7 @@ const MainHomePage: FC<PropsType> = props => {
       <HomeTemplate>
         <MapView
           onViewportChange={nextViewport => setViewport(nextViewport)}
+          mapStyle={'mapbox://styles/kaidu1982/ckpv80cdg250n17orm3lb4t06'}
           {...viewport}
         />
       </HomeTemplate>
